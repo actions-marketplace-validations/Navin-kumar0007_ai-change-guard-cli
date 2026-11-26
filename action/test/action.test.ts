@@ -1,7 +1,7 @@
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { LlmClient } from "@ai-change-guard/llm";
+import type { LlmClient } from "@ai-changeguard/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { run } from "../src/main.js";
 
@@ -123,7 +123,7 @@ describe("Prompt Repair in the Action", () => {
 
 describe("watch mode", () => {
   it("passes quietly when the model answers like the baseline, and fails with a summary when it breaks", async () => {
-    const { createBaseline, parseGoldenSet } = await import("@ai-change-guard/replay");
+    const { createBaseline, parseGoldenSet } = await import("@ai-changeguard/replay");
     const golden = '{"id":"a","input":"Reply in JSON","expect":{"json":true}}\n';
     const answer = (text: string) => ({ text, toolCalls: [], inputTokens: 1, outputTokens: 1, latencyMs: 1, refused: false, servedModel: "gpt-4o-2024-08-06" });
     const steady: LlmClient = async () => answer('{"ok": true}');

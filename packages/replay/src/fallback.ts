@@ -1,4 +1,4 @@
-import { parseModelRef, type LlmClient, type ProviderId } from "@ai-change-guard/llm";
+import { parseModelRef, type LlmClient, type ProviderId } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { buildReplayReport, type ReplayReport } from "./report.js";
 import { plannedCalls, runReplay, SpendCapError } from "./run.js";

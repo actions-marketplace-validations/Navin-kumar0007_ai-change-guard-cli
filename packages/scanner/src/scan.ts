@@ -1,6 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { apis } from "@ai-change-guard/catalog";
+import { apis } from "@ai-changeguard/catalog";
 import { compileApiRules, scanText, type Finding } from "./detect.js";
 import { isDependencyFile, lineOf, ownPackageName, parseDependencies, privateRegistries, type Dependency } from "./deps.js";
 import { isAiRelated } from "./packages.js";

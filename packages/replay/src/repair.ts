@@ -1,4 +1,4 @@
-import { parseModelRef, type LlmClient } from "@ai-change-guard/llm";
+import { parseModelRef, type LlmClient } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { runReplay, SpendCapError, type RunRecord } from "./run.js";
 import { judgeItem, type ItemResult } from "./verdict.js";

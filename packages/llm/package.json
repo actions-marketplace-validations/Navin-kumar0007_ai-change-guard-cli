@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/llm",
+  "name": "@ai-changeguard/llm",
   "version": "0.1.0",
   "description": "Minimal clients for OpenAI, Anthropic and Gemini used by AI Change Guard replays.",
   "license": "MIT",

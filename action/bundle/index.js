@@ -2809,9 +2809,9 @@ var init_schemas = __esm({
         const proms = [];
         const abortEarly = ctx?.abortEarly;
         for (let i = 0; i < input2.length; i++) {
-          const item = input2[i];
+          const item2 = input2[i];
           const result = def.element._zod.run({
-            value: item,
+            value: item2,
             issues: []
           }, ctx);
           if (result instanceof Promise) {
@@ -5109,8 +5109,8 @@ function isTransforming(_schema, _ctx) {
     return false;
   }
   if (def.type === "tuple") {
-    for (const item of def.items) {
-      if (isTransforming(item, ctx))
+    for (const item2 of def.items) {
+      if (isTransforming(item2, ctx))
         return true;
     }
     if (def.rest && isTransforming(def.rest, ctx))
@@ -5678,8 +5678,8 @@ var init_json_schema_processors = __esm({
       }) : null;
       let minItems = def.items.length;
       while (minItems > 0) {
-        const item = def.items[minItems - 1];
-        const optional2 = ctx.io === "input" ? inputOptin(item) !== void 0 : item._zod.optout === "optional";
+        const item2 = def.items[minItems - 1];
+        const optional2 = ctx.io === "input" ? inputOptin(item2) !== void 0 : item2._zod.optout === "optional";
         if (!optional2)
           break;
         minItems--;
@@ -9111,7 +9111,7 @@ function wrapOutputSchemaForLegacy(natural) {
   };
   const convertRecursiveRefs = declares2019Dialect(natural["$schema"]) && natural["$recursiveAnchor"] !== true;
   const rewriteRefs = (node2, parentIsNameMap) => {
-    if (Array.isArray(node2)) return node2.map((item) => rewriteRefs(item, false));
+    if (Array.isArray(node2)) return node2.map((item2) => rewriteRefs(item2, false));
     if (node2 === null || typeof node2 !== "object") return node2;
     if (!parentIsNameMap && establishesNewBase(node2["$id"])) return node2;
     const out = {};
@@ -10598,7 +10598,7 @@ function describeUnsupportedProperties(pruned, fallback) {
   return offenders.length > 0 ? offenders.join(", ") : fallback;
 }
 function findDroppedConstraintPaths(original, parsed, path = "") {
-  if (Array.isArray(original) && Array.isArray(parsed)) return original.flatMap((item, index) => findDroppedConstraintPaths(item, parsed[index], `${path}[${index}]`));
+  if (Array.isArray(original) && Array.isArray(parsed)) return original.flatMap((item2, index) => findDroppedConstraintPaths(item2, parsed[index], `${path}[${index}]`));
   if (!isJsonObject(original) || !isJsonObject(parsed)) return [];
   return Object.entries(original).flatMap(([key, value]) => {
     const childPath = path ? `${path}.${key}` : key;
@@ -13327,8 +13327,8 @@ var init_ajvProvider_BIwGVY6G = __esm({
         }
         emptyStr() {
           if (this._items.length > 1) return false;
-          const item = this._items[0];
-          return item === "" || item === '""';
+          const item2 = this._items[0];
+          return item2 === "" || item2 === '""';
         }
         get str() {
           var _a3;
@@ -14239,7 +14239,7 @@ var init_ajvProvider_BIwGVY6G = __esm({
       const code_1 = require_code$1();
       function toHash(arr) {
         const hash = {};
-        for (const item of arr) hash[item] = true;
+        for (const item2 of arr) hash[item2] = true;
         return hash;
       }
       exports.toHash = toHash;
@@ -17875,18 +17875,18 @@ var init_ajvProvider_BIwGVY6G = __esm({
             return itemTypes.length > 0 && !itemTypes.some((t) => t === "object" || t === "array");
           }
           function loopN(i, j) {
-            const item = gen.name("item");
-            const wrongType = (0, dataType_1.checkDataTypes)(itemTypes, item, it.opts.strictNumbers, dataType_1.DataType.Wrong);
+            const item2 = gen.name("item");
+            const wrongType = (0, dataType_1.checkDataTypes)(itemTypes, item2, it.opts.strictNumbers, dataType_1.DataType.Wrong);
             const indices = gen.const("indices", (0, codegen_1._)`{}`);
             gen.for((0, codegen_1._)`;${i}--;`, () => {
-              gen.let(item, (0, codegen_1._)`${data}[${i}]`);
+              gen.let(item2, (0, codegen_1._)`${data}[${i}]`);
               gen.if(wrongType, (0, codegen_1._)`continue`);
-              if (itemTypes.length > 1) gen.if((0, codegen_1._)`typeof ${item} == "string"`, (0, codegen_1._)`${item} += "_"`);
-              gen.if((0, codegen_1._)`typeof ${indices}[${item}] == "number"`, () => {
-                gen.assign(j, (0, codegen_1._)`${indices}[${item}]`);
+              if (itemTypes.length > 1) gen.if((0, codegen_1._)`typeof ${item2} == "string"`, (0, codegen_1._)`${item2} += "_"`);
+              gen.if((0, codegen_1._)`typeof ${indices}[${item2}] == "number"`, () => {
+                gen.assign(j, (0, codegen_1._)`${indices}[${item2}]`);
                 cxt.error();
                 gen.assign(valid, false).break();
-              }).code((0, codegen_1._)`${indices}[${item}] = ${i}`);
+              }).code((0, codegen_1._)`${indices}[${item2}] = ${i}`);
             });
           }
           function loopN2(i, j) {
@@ -29977,22 +29977,22 @@ function parseGoldenSet(text) {
     ids.add(id);
     if (raw.system !== void 0 && typeof raw.system !== "string")
       throw new GoldenSetError(`${where}: "system" must be text`);
-    const item = { id, messages: parseMessages(raw, where) };
+    const item2 = { id, messages: parseMessages(raw, where) };
     if (typeof raw.system === "string")
-      item.system = raw.system;
+      item2.system = raw.system;
     const tools = parseTools(raw.tools, where);
     if (tools)
-      item.tools = tools;
+      item2.tools = tools;
     const expect = parseExpect(raw.expect, where);
     if (expect)
-      item.expect = expect;
+      item2.expect = expect;
     if (typeof raw.max_tokens === "number")
-      item.maxTokens = raw.max_tokens;
+      item2.maxTokens = raw.max_tokens;
     if (typeof raw.temperature === "number")
-      item.temperature = raw.temperature;
+      item2.temperature = raw.temperature;
     if (raw.json_mode === true)
-      item.jsonMode = true;
-    items.push(item);
+      item2.jsonMode = true;
+    items.push(item2);
   });
   if (items.length === 0)
     throw new GoldenSetError("The golden set is empty.");
@@ -30109,15 +30109,15 @@ var ReplayCancelledError = class extends Error {
 function plannedCalls(items, runs, sides = 2) {
   return items * runs * sides;
 }
-function requestFor(item, model, defaultMaxTokens) {
-  const request = { model, messages: item.messages, maxTokens: item.maxTokens ?? defaultMaxTokens };
-  if (item.system)
-    request.system = item.system;
-  if (item.tools)
-    request.tools = item.tools;
-  if (item.temperature !== void 0)
-    request.temperature = item.temperature;
-  if (item.jsonMode)
+function requestFor(item2, model, defaultMaxTokens) {
+  const request = { model, messages: item2.messages, maxTokens: item2.maxTokens ?? defaultMaxTokens };
+  if (item2.system)
+    request.system = item2.system;
+  if (item2.tools)
+    request.tools = item2.tools;
+  if (item2.temperature !== void 0)
+    request.temperature = item2.temperature;
+  if (item2.jsonMode)
     request.jsonMode = true;
   return request;
 }
@@ -30132,16 +30132,16 @@ async function runReplay(options) {
   }
   const newById = new Map((options.newItems ?? []).map((i) => [i.id, i]));
   const tasks = [];
-  for (const item of options.items) {
+  for (const item2 of options.items) {
     for (let run2 = 0; run2 < runs; run2++) {
       for (const side of sides) {
-        const sent = side === "new" ? newById.get(item.id) ?? item : item;
+        const sent = side === "new" ? newById.get(item2.id) ?? item2 : item2;
         const request = requestFor(sent, side === "old" ? options.oldModel : options.newModel, options.defaultMaxTokens ?? 1024);
         tasks.push(async () => {
           try {
-            return { itemId: item.id, side, run: run2, response: await options.client(request) };
+            return { itemId: item2.id, side, run: run2, response: await options.client(request) };
           } catch (error2) {
-            return { itemId: item.id, side, run: run2, error: error2 instanceof Error ? error2.message : String(error2) };
+            return { itemId: item2.id, side, run: run2, error: error2 instanceof Error ? error2.message : String(error2) };
           }
         });
       }
@@ -30190,8 +30190,8 @@ function mostCommon(values) {
       best = { value, share: n / values.length };
   return best;
 }
-function missingRequiredArg(item, call) {
-  const required2 = item.tools?.find((t) => t.name === call.name)?.parameters.required;
+function missingRequiredArg(item2, call) {
+  const required2 = item2.tools?.find((t) => t.name === call.name)?.parameters.required;
   if (!Array.isArray(required2))
     return false;
   return required2.some((key) => typeof key === "string" && !(key in call.arguments));
@@ -30199,13 +30199,13 @@ function missingRequiredArg(item, call) {
 function firstError(records) {
   return records.find((r) => r.error)?.error ?? "no runs";
 }
-function judgeItem(item, records, options = {}) {
+function judgeItem(item2, records, options = {}) {
   const share = options.share ?? 0.4;
-  const oldRecords = records.filter((r) => r.itemId === item.id && r.side === "old");
-  const newRecords = records.filter((r) => r.itemId === item.id && r.side === "new");
+  const oldRecords = records.filter((r) => r.itemId === item2.id && r.side === "old");
+  const newRecords = records.filter((r) => r.itemId === item2.id && r.side === "new");
   const oldOk = oldRecords.flatMap((r) => r.response ? [r.response] : []);
   const newOk = newRecords.flatMap((r) => r.response ? [r.response] : []);
-  const result = { id: item.id, verdict: "same", reasons: [], old: sideStats(oldRecords), new: sideStats(newRecords) };
+  const result = { id: item2.id, verdict: "same", reasons: [], old: sideStats(oldRecords), new: sideStats(newRecords) };
   if (oldOk[0])
     result.sampleOld = oldOk[0].text;
   if (newOk[0])
@@ -30228,7 +30228,7 @@ function judgeItem(item, records, options = {}) {
     add("calls-failing", "broken", `${newErrors} of ${newRecords.length} calls to the new model failed: ${firstError(newRecords)}`);
   }
   const threshold = atLeast(newOk.length, share);
-  const expect = item.expect;
+  const expect = item2.expect;
   if (expect?.json || expect?.schema) {
     const problem = (r) => {
       const parsed = extractJson(r.text);
@@ -30250,7 +30250,7 @@ function judgeItem(item, records, options = {}) {
     if (newWrong >= threshold && newWrong > oldWrong) {
       add("tool-change", "broken", `${newWrong} of ${newOk.length} new answers don't call ${expect.tool} (old: ${oldWrong} of ${oldOk.length})`);
     }
-  } else if (item.tools?.length) {
+  } else if (item2.tools?.length) {
     const firstTool = (r) => r.toolCalls[0]?.name ?? "no tool";
     const oldMode = mostCommon(oldOk.map(firstTool));
     const newMode = mostCommon(newOk.map(firstTool));
@@ -30258,8 +30258,8 @@ function judgeItem(item, records, options = {}) {
       add("tool-change", "broken", `The old model called ${oldMode.value}; the new one calls ${newMode.value}`);
     }
   }
-  if (item.tools?.length) {
-    const missing = (r) => r.toolCalls.some((c) => missingRequiredArg(item, c));
+  if (item2.tools?.length) {
+    const missing = (r) => r.toolCalls.some((c) => missingRequiredArg(item2, c));
     const newMissing = count(newOk, missing);
     const oldMissing = count(oldOk, missing);
     if (newMissing >= threshold && newMissing > oldMissing) {
@@ -30406,7 +30406,7 @@ function costOfCall(ref, usage, today) {
   return price ? callCost(price, usage.input, usage.output) : void 0;
 }
 function buildReplayReport(items, records, options) {
-  const results = items.map((item) => judgeItem(item, records, options.judge)).sort((a, b) => VERDICT_ORDER[a.verdict] - VERDICT_ORDER[b.verdict]);
+  const results = items.map((item2) => judgeItem(item2, records, options.judge)).sort((a, b) => VERDICT_ORDER[a.verdict] - VERDICT_ORDER[b.verdict]);
   const totals = { same: 0, changed: 0, broken: 0, error: 0 };
   for (const r of results)
     totals[r.verdict]++;
@@ -30484,11 +30484,11 @@ function formatReplayMarkdown(report) {
   const flagged = report.items.filter((i) => i.verdict !== "same");
   if (flagged.length > 0) {
     out.push("", "### What changed");
-    for (const item of flagged) {
-      out.push("", `**${item.verdict.toUpperCase()}: ${item.id}**`);
-      if (item.error)
-        out.push(`- ${item.error}`);
-      for (const reason of item.reasons)
+    for (const item2 of flagged) {
+      out.push("", `**${item2.verdict.toUpperCase()}: ${item2.id}**`);
+      if (item2.error)
+        out.push(`- ${item2.error}`);
+      for (const reason of item2.reasons)
         out.push(`- ${reason.detail}`);
     }
   }
@@ -30502,11 +30502,11 @@ function repairable(result) {
   const broken = result.reasons.filter((r) => r.severity === "broken");
   return result.verdict === "broken" && broken.length > 0 && broken.every((r) => r.code === "format-broken");
 }
-function formatInstruction(item) {
+function formatInstruction(item2) {
   const base = "Answer with one JSON value only: no explanation before or after it, no Markdown, no code fences.";
-  if (!item.expect?.schema)
+  if (!item2.expect?.schema)
     return base;
-  const schema = JSON.stringify(item.expect.schema);
+  const schema = JSON.stringify(item2.expect.schema);
   return schema.length <= MAX_SCHEMA_CHARS ? `${base} It must match this JSON Schema: ${schema}` : base;
 }
 function cell(text) {
@@ -30515,16 +30515,16 @@ function cell(text) {
 function code(text) {
   return "`" + text.replace(/\s+/g, " ").replace(/`/g, "'") + "`";
 }
-function candidates(item, newModel) {
-  const systemAddition = formatInstruction(item);
+function candidates(item2, newModel) {
+  const systemAddition = formatInstruction(item2);
   const list = [{ kind: "format-instruction", systemAddition }];
-  if (!item.jsonMode && !item.tools?.length && !NO_JSON_MODE.has(parseModelRef(newModel).provider)) {
+  if (!item2.jsonMode && !item2.tools?.length && !NO_JSON_MODE.has(parseModelRef(newModel).provider)) {
     list.push({ kind: "json-mode", systemAddition, jsonMode: true });
   }
   return list;
 }
-function applyRepair(item, patch) {
-  const repaired = { ...item, system: item.system ? `${item.system}
+function applyRepair(item2, patch) {
+  const repaired = { ...item2, system: item2.system ? `${item2.system}
 
 ${patch.systemAddition}` : patch.systemAddition };
   if (patch.jsonMode)
@@ -30653,8 +30653,8 @@ function stable(value) {
   }
   return JSON.stringify(value) ?? "null";
 }
-function itemHash(item) {
-  const request = { system: item.system, messages: item.messages, tools: item.tools, maxTokens: item.maxTokens, temperature: item.temperature, jsonMode: item.jsonMode };
+function itemHash(item2) {
+  const request = { system: item2.system, messages: item2.messages, tools: item2.tools, maxTokens: item2.maxTokens, temperature: item2.temperature, jsonMode: item2.jsonMode };
   return createHash("sha256").update(stable(request)).digest("hex").slice(0, 16);
 }
 function trimmed(response) {
@@ -31028,14 +31028,14 @@ function plannedSlimCalls(itemsPerPrompt, runs, styles) {
 }
 function groupBySystem(items) {
   const groups = /* @__PURE__ */ new Map();
-  for (const item of items) {
-    if (!item.system?.trim())
+  for (const item2 of items) {
+    if (!item2.system?.trim())
       continue;
-    const list = groups.get(item.system);
+    const list = groups.get(item2.system);
     if (list)
-      list.push(item);
+      list.push(item2);
     else
-      groups.set(item.system, [item]);
+      groups.set(item2.system, [item2]);
   }
   return [...groups].map(([system, list]) => ({ system, items: list })).sort((a, b) => b.items.length - a.items.length);
 }
@@ -31177,6 +31177,66 @@ function formatSlimMarkdown(result) {
   }
   out.push(`Rewrites by \`${result.writer}\`. List prices at the higher of today's and the price two months out; no batch, cache or volume discounts.`);
   return out.join("\n");
+}
+
+// packages/replay/dist/published.js
+var REPLAY_CHECK_NAME = "AI Change Guard model switch";
+var MARK = "ai-change-guard:replay:v1";
+var TEXT_LIMIT = 6e4;
+var cut = (s, n) => s === void 0 ? void 0 : s.length > n ? `${s.slice(0, n)}\u2026` : s;
+function item(i, sample, sameSamples) {
+  const withSamples = i.verdict !== "same" || sameSamples;
+  return {
+    id: i.id.slice(0, 200),
+    verdict: i.verdict,
+    reasons: i.reasons.map((r) => r.detail.slice(0, 500)),
+    ...withSamples && i.sampleOld !== void 0 ? { sampleOld: cut(i.sampleOld, sample) } : {},
+    ...withSamples && i.sampleNew !== void 0 ? { sampleNew: cut(i.sampleNew, sample) } : {},
+    ...i.error ? { error: i.error.slice(0, 500) } : {}
+  };
+}
+var safeJson = (value) => JSON.stringify(value).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
+function replayCheckText(report, prUrl, limit = TEXT_LIMIT) {
+  const base = {
+    v: 1,
+    oldModel: report.oldModel.slice(0, 200),
+    newModel: report.newModel.slice(0, 200),
+    runs: report.runs,
+    calls: report.calls,
+    failedCalls: report.failedCalls,
+    totals: report.totals,
+    avgTokens: report.avgTokens,
+    avgLatencyMs: report.avgLatencyMs,
+    ...report.costPerCall ? { costPerCall: report.costPerCall } : {},
+    comparedPrompts: report.comparedPrompts,
+    rateLimited: report.rateLimited,
+    reroutes: report.reroutes.slice(0, 10).map((r) => ({ side: r.side, requested: r.requested.slice(0, 200), served: r.served.slice(0, 200) })),
+    ...prUrl ? { prUrl: prUrl.slice(0, 500) } : {}
+  };
+  const wrap2 = (items2, omitted) => `<!-- ${MARK} ${safeJson({ ...base, items: items2, omittedItems: omitted })} -->`;
+  for (const [sample, sameSamples] of [[2e3, true], [2e3, false], [800, false], [300, false]]) {
+    const text = wrap2(report.items.map((i) => item(i, sample, sameSamples)), 0);
+    if (text.length <= limit)
+      return text;
+  }
+  const items = report.items.map((i) => item(i, 300, false));
+  let keep = items.length;
+  while (keep > 0 && wrap2(items.slice(0, keep), items.length - keep).length > limit)
+    keep = Math.floor(keep * 0.8);
+  return wrap2(items.slice(0, keep), items.length - keep);
+}
+function replayConclusion(report, failOn = "broken") {
+  const t = report.totals;
+  if (failOn === "broken" && t.broken > 0 || failOn === "changed" && t.broken + t.changed > 0)
+    return "failure";
+  return t.broken + t.changed + t.error > 0 ? "neutral" : "success";
+}
+function replayTitle(report) {
+  const t = report.totals;
+  const parts = [`${t.same} same`, `${t.changed} changed`, `${t.broken} broken`];
+  if (t.error)
+    parts.push(`${t.error} could not compare`);
+  return parts.join(" \xB7 ");
 }
 
 // packages/scanner/dist/detect.js
@@ -32159,8 +32219,8 @@ function readJoined(content, start, prefix, quote, goRaw) {
 function dedent(text) {
   const lines = text.replace(/^\n/, "").split("\n");
   const indents = lines.filter((l) => l.trim()).map((l) => /^[ \t]*/.exec(l)[0].length);
-  const cut = indents.length ? Math.min(...indents) : 0;
-  return lines.map((l) => l.slice(cut)).join("\n").trim();
+  const cut2 = indents.length ? Math.min(...indents) : 0;
+  return lines.map((l) => l.slice(cut2)).join("\n").trim();
 }
 function lineIndex(content) {
   const starts = [0];
@@ -33427,10 +33487,10 @@ function evidenceBody(plan, replay, scanPath, note, extra, text) {
   const top = lines.join("\n");
   const open2 = "\n<details><summary>Full replay report</summary>\n\n";
   const close = "\n\n</details>";
-  const cut = "\n\n\u2026cut to fit GitHub's limit; the full report is in the workflow run's Summary.";
+  const cut2 = "\n\n\u2026cut to fit GitHub's limit; the full report is in the workflow run's Summary.";
   let report = formatReplayMarkdown(replay);
   const room = MAX_BODY - top.length - open2.length - close.length;
-  if (report.length > room) report = report.slice(0, Math.max(0, room - cut.length)) + cut;
+  if (report.length > room) report = report.slice(0, Math.max(0, room - cut2.length)) + cut2;
   return top + open2 + report + close;
 }
 var PERMISSION_HELP = 'Give the job `permissions: { contents: write, pull-requests: write }`, and in Settings \u2192 Actions \u2192 General turn on "Allow GitHub Actions to create and approve pull requests".';
@@ -33595,6 +33655,25 @@ function switchIds(oldModel, newModel) {
   const last = (m) => m.slice(m.lastIndexOf("/") + 1);
   const ids = checkSwitchIds(last(a.model), last(b.model));
   return prefix(a.model) ? { ...ids, prefix: prefix(a.model) } : ids;
+}
+async function publishReplayCheck({ env, log, github, replay, prUrl, failOn }) {
+  const repo = env.GITHUB_REPOSITORY ?? "";
+  const sha = env.GITHUB_SHA ?? "";
+  const token = input("github-token", env) || env.GITHUB_TOKEN || "";
+  if (!repo || !sha || !github && !token) return;
+  try {
+    await (github ?? githubApi(token, env.GITHUB_API_URL))("POST", `/repos/${repo}/check-runs`, {
+      name: REPLAY_CHECK_NAME,
+      head_sha: sha,
+      status: "completed",
+      conclusion: replayConclusion(replay, failOn),
+      output: { title: replayTitle(replay), summary: formatReplayMarkdown(replay).slice(0, 6e4), text: replayCheckText(replay, prUrl) }
+    });
+    log("AI Change Guard: saved the model switch report as a check run; it shows on your AI Change Guard dashboard");
+  } catch (error2) {
+    const hint = error2 instanceof GitHubError && error2.status === 403 ? `add "checks: write" to the workflow's permissions to see this report on your AI Change Guard dashboard` : error2 instanceof Error ? error2.message : String(error2);
+    log(`::notice::AI Change Guard: could not save the model switch report as a check run (${hint}).`);
+  }
 }
 async function run({ env, today, log, client, github }) {
   const workspace = env.GITHUB_WORKSPACE ?? process.cwd();
@@ -33820,32 +33899,38 @@ ${check2.summary}`);
     const replayFailed = replayFailOn === "broken" && broken > 0 || replayFailOn === "changed" && broken + changed > 0;
     log(`${replayFailed ? "::error::" : ""}AI Change Guard replay: ${replay.totals.same} same, ${changed} changed, ${broken} broken`);
     failed = failed || replayFailed;
-    if (ids && plan) {
-      const notice = (text) => log(`::notice::AI Change Guard: ${text}`);
-      if (replayFailed || broken > 0 || replay.totals.error > 0) {
-        notice("no pull request, because the replay did not pass (see the Summary).");
-      } else if (plan.edits.length === 0) {
-        notice(`no pull request, because no code uses ${ids.from} as a plain model ID${plan.skipped.length ? ` (${plan.skipped.length} use(s) need a manual change)` : ""}.`);
-      } else {
-        const token = input("github-token", env) || env.GITHUB_TOKEN || "";
-        if (!github && !token) throw new Error('open-pr needs a token: keep the default "github-token" input or pass one.');
-        const repo = env.GITHUB_REPOSITORY ?? "";
-        const result = await openEvidencePr({
-          api: github ?? githubApi(token, env.GITHUB_API_URL),
-          repo,
-          ref: env.GITHUB_REF ?? "",
-          sha: env.GITHUB_SHA ?? "",
-          workspace,
-          scanPath: relative2(workspace, scanRoot).split(sep2).join("/"),
-          plan,
-          replay
-        });
-        if (result.action === "skipped") notice(`no pull request. ${result.reason}`);
-        else {
-          log(`AI Change Guard ${result.action} pull request #${result.number}: ${result.url}`);
-          await summary(`**Evidence pull request ${result.action}:** [#${result.number}](${result.url})`);
+    let prUrl;
+    try {
+      if (ids && plan) {
+        const notice = (text) => log(`::notice::AI Change Guard: ${text}`);
+        if (replayFailed || broken > 0 || replay.totals.error > 0) {
+          notice("no pull request, because the replay did not pass (see the Summary).");
+        } else if (plan.edits.length === 0) {
+          notice(`no pull request, because no code uses ${ids.from} as a plain model ID${plan.skipped.length ? ` (${plan.skipped.length} use(s) need a manual change)` : ""}.`);
+        } else {
+          const token = input("github-token", env) || env.GITHUB_TOKEN || "";
+          if (!github && !token) throw new Error('open-pr needs a token: keep the default "github-token" input or pass one.');
+          const repo = env.GITHUB_REPOSITORY ?? "";
+          const result = await openEvidencePr({
+            api: github ?? githubApi(token, env.GITHUB_API_URL),
+            repo,
+            ref: env.GITHUB_REF ?? "",
+            sha: env.GITHUB_SHA ?? "",
+            workspace,
+            scanPath: relative2(workspace, scanRoot).split(sep2).join("/"),
+            plan,
+            replay
+          });
+          if (result.action === "skipped") notice(`no pull request. ${result.reason}`);
+          else {
+            log(`AI Change Guard ${result.action} pull request #${result.number}: ${result.url}`);
+            await summary(`**Evidence pull request ${result.action}:** [#${result.number}](${result.url})`);
+            prUrl = result.url;
+          }
         }
       }
+    } finally {
+      await publishReplayCheck({ env, log, github, replay, prUrl, failOn: replayFailOn });
     }
   }
   return failed ? 1 : 0;

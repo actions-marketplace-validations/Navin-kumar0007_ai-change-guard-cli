@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest } from "@ai-changeguard/llm";
 import { describe, expect, it } from "vitest";
 import type { GoldenItem } from "../src/golden.js";
 import { SpendCapError } from "../src/run.js";

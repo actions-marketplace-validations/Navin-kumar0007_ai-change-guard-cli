@@ -1,4 +1,4 @@
-import type { LlmClient } from "@ai-change-guard/llm";
+import type { LlmClient } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { extractJson } from "./schema.js";
 

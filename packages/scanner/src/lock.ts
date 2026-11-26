@@ -6,7 +6,7 @@
 //   "outdated": the code changed and the lock was not updated (a new model, a new package version, ...);
 //   "catalog":  the code is the same but the facts changed (a retirement announced or moved, a reroute,
 //               a price change): what the nightly check alerts on.
-import { lookupPrice, lookupPriceChanges, type Platform } from "@ai-change-guard/catalog";
+import { lookupPrice, lookupPriceChanges, type Platform } from "@ai-changeguard/catalog";
 import { classifyModelId } from "./detect.js";
 import type { McpServerTools, McpToolPrint } from "./mcp-tools.js";
 import type { Report } from "./report.js";

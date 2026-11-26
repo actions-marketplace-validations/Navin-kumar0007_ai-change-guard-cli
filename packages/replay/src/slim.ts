@@ -2,8 +2,8 @@
 // real prompts the same way. A model you choose rewrites each system prompt shorter; the golden set is replayed
 // on your model with the old and the new prompt, and the shorter one is proposed only when nothing broke and at
 // most 2% of answers changed: savings with proof, like Money-Finder.
-import { formatUsd, localToday } from "@ai-change-guard/catalog";
-import { parseModelRef, type LlmClient } from "@ai-change-guard/llm";
+import { formatUsd, localToday } from "@ai-changeguard/catalog";
+import { parseModelRef, type LlmClient } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { buildReplayReport, type ReplayReport } from "./report.js";
 import { plannedCalls, runReplay, SpendCapError } from "./run.js";

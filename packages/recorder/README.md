@@ -12,7 +12,7 @@ import { record } from "./acg-recorder.js";
 record(); // writes ./ai-calls.jsonl
 ```
 
-It wraps `fetch`, which the official OpenAI, Anthropic and Google Gen AI SDKs use (Node 18 or newer). Call it before you create your AI clients: a client created earlier may keep the original `fetch` and is then not recorded. The safest place is the first line of your entry file, in a module of its own that you import first. Once the package is published, `node --import @ai-change-guard/recorder/register app.js` starts it before any of your code (settings from `ACG_RECORD_FILE` and `ACG_RECORD_SAMPLE`).
+It wraps `fetch`, which the official OpenAI, Anthropic and Google Gen AI SDKs use (Node 18 or newer). Call it before you create your AI clients: a client created earlier may keep the original `fetch` and is then not recorded. The safest place is the first line of your entry file, in a module of its own that you import first. Once the package is published, `node --import @ai-changeguard/recorder/register app.js` starts it before any of your code (settings from `ACG_RECORD_FILE` and `ACG_RECORD_SAMPLE`).
 
 ## Python (three lines)
 

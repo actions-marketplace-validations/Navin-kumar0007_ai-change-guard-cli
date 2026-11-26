@@ -1,4 +1,4 @@
-# @ai-change-guard/catalog
+# @ai-changeguard/catalog
 
 Catalog of AI model and API retirement dates, with a source link for every date.
 

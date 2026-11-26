@@ -1,4 +1,4 @@
-import type { LlmClient } from "@ai-change-guard/llm";
+import type { LlmClient } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { plannedRepairCalls, repairable, runRepair, type RepairReport } from "./repair.js";
 import { buildReplayReport, type ReplayReport } from "./report.js";

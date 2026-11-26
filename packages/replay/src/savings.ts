@@ -2,8 +2,8 @@
 // on the same provider from the catalog, replays the golden set on them against your model, and keeps a
 // candidate only with nothing broken and at most 2% of answers changed. Savings use the tokens measured in
 // the replay (so a tokenizer that uses more tokens counts) and, when given, your monthly call volume.
-import { billedPriceOn, callCost, formatUsd, localToday, lookupModel, prices, tokenRatio, type Platform, type TokenPrice } from "@ai-change-guard/catalog";
-import { parseModelRef, type LlmClient } from "@ai-change-guard/llm";
+import { billedPriceOn, callCost, formatUsd, localToday, lookupModel, prices, tokenRatio, type Platform, type TokenPrice } from "@ai-changeguard/catalog";
+import { parseModelRef, type LlmClient } from "@ai-changeguard/llm";
 import { testFallbacks } from "./fallback.js";
 import type { GoldenItem } from "./golden.js";
 import { modelName, platformForRef, type ReplayReport } from "./report.js";

@@ -1,7 +1,7 @@
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { aiPackageMatch, findCompromised } from "@ai-change-guard/catalog";
+import { aiPackageMatch, findCompromised } from "@ai-changeguard/catalog";
 import { describe, expect, it } from "vitest";
 import { buildCheck } from "../src/check.js";
 import { lineOf, normalizeName, ownPackageName, parseDependencies, privateRegistries } from "../src/deps.js";

@@ -29,3 +29,5 @@ export { formatSlimMarkdown, formatSlimText, MIN_SLIM_ITEMS, parseSlimAnswer, pl
 export type { SlimOptions, SlimPrompt, SlimResult, SlimStyle, SlimVariant } from "./slim.js";
 export { EvalsExportError, exportOpenAiEvals, runFileIds, runSamplingParams, safeId } from "./openai-evals.js";
 export type { EvalsExportOptions, EvalsExportResult } from "./openai-evals.js";
+export { readReplayCheckText, REPLAY_CHECK_NAME, replayCheckText, replayConclusion, replayTitle } from "./published.js";
+export type { PublishedItem, PublishedReplay } from "./published.js";

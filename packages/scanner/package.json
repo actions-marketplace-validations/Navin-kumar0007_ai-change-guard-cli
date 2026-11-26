@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/scanner",
+  "name": "@ai-changeguard/scanner",
   "version": "0.1.0",
   "description": "Finds every AI model in your code and warns before it is retired, rerouted or shut down.",
   "license": "MIT",
@@ -42,9 +42,9 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@ai-change-guard/catalog": "0.1.0",
-    "@ai-change-guard/llm": "0.1.0",
-    "@ai-change-guard/replay": "0.1.0",
+    "@ai-changeguard/catalog": "0.1.0",
+    "@ai-changeguard/llm": "0.1.0",
+    "@ai-changeguard/replay": "0.1.0",
     "@modelcontextprotocol/client": "2.4.0"
   },
   "devDependencies": {

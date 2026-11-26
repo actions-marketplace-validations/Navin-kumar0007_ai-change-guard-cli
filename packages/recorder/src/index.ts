@@ -6,7 +6,7 @@ import { dirname, resolve } from "node:path";
  * Records your app's real AI calls to a JSONL file, so `ai-change-guard import` can turn them
  * into a golden set. Three lines:
  *
- *   import { record } from "@ai-change-guard/recorder";
+ *   import { record } from "@ai-changeguard/recorder";
  *   record();                       // writes ./ai-calls.jsonl
  *
  * It wraps globalThis.fetch, which the OpenAI, Anthropic and Google Gen AI SDKs use, and saves

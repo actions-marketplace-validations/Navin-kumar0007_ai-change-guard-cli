@@ -1,4 +1,4 @@
-import { billedPriceOn, callCost, defaultPlatform, formatUsd, localToday, type Platform, type Provider } from "@ai-change-guard/catalog";
+import { billedPriceOn, callCost, defaultPlatform, formatUsd, localToday, type Platform, type Provider } from "@ai-changeguard/catalog";
 import type { GoldenItem } from "./golden.js";
 import type { RunRecord, Side } from "./run.js";
 import { judgeItem, type ItemResult, type JudgeOptions, type Verdict } from "./verdict.js";

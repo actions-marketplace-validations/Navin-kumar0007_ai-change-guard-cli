@@ -1,7 +1,7 @@
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { LlmClient } from "@ai-change-guard/llm";
+import type { LlmClient } from "@ai-changeguard/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { run, switchIds } from "../src/main.js";
 import { branchName, GitHubError, gitBlobSha, type GitHubApi } from "../src/pr.js";
@@ -31,6 +31,8 @@ interface FakeOptions {
   headSha?: string;
   refExists?: boolean;
   denyPulls?: boolean;
+  /** The workflow lacks "checks: write". */
+  denyChecks?: boolean;
   racePulls?: boolean;
   compare?: { ahead_by: number; behind_by: number; commits: { commit: { message: string } }[] };
   /** Files committed at SHA (path → content); defaults to FILES. */
@@ -42,9 +44,11 @@ interface FakeOptions {
 /** A fake GitHub that answers like the REST API and records every call. */
 function fakeGitHub(opts: FakeOptions = {}) {
   const calls: Call[] = [];
+  /** Check runs the Action saved, kept apart from the pull request's calls. */
+  const checks: Call[] = [];
   let pullsListed = 0;
   const api: GitHubApi = async <T>(method: string, path: string, body?: unknown) => {
-    calls.push({ method, path, body });
+    (path.endsWith("/check-runs") ? checks : calls).push({ method, path, body });
     const reply = (value: unknown) => value as T;
     if (method === "GET" && path === "/repos/acme/bot") return reply({ default_branch: "main" });
     if (method === "GET" && path === "/repos/acme/bot/git/ref/heads/main") return reply({ object: { sha: opts.headSha ?? SHA } });
@@ -77,9 +81,13 @@ function fakeGitHub(opts: FakeOptions = {}) {
       return reply({ number: 7, html_url: "https://github.com/acme/bot/pull/7" });
     }
     if (method === "PATCH" && path.startsWith("/repos/acme/bot/pulls/")) return reply({});
+    if (method === "POST" && path === "/repos/acme/bot/check-runs") {
+      if (opts.denyChecks) throw new GitHubError(403, "GitHub 403 on POST /repos/acme/bot/check-runs: Resource not accessible by integration");
+      return reply({ id: 1 });
+    }
     throw new Error(`unexpected ${method} ${path}`);
   };
-  return { api, calls };
+  return { api, calls, checks };
 }
 
 const passing: LlmClient = async () => ({ text: '{"ok": true}', toolCalls: [], inputTokens: 10, outputTokens: 5, latencyMs: 1, refused: false });
@@ -110,7 +118,9 @@ async function runWithPr(
   for (const [k, v] of Object.entries(all)) env[`INPUT_${k.toUpperCase()}`] = v;
   const lines: string[] = [];
   const code = await run({ env, today: "2026-11-22", log: (l) => lines.push(l), client, github });
-  return { code, lines, summary: await readFile(env.GITHUB_STEP_SUMMARY!, "utf8"), dir };
+  // The check run's own line is tested on its own below; the pull request tests read the lines before it.
+  const checkLine = (l: string) => /model switch report as a check run/.test(l);
+  return { code, lines: lines.filter((l) => !checkLine(l)), checkLines: lines.filter(checkLine), summary: await readFile(env.GITHUB_STEP_SUMMARY!, "utf8"), dir };
 }
 
 const writes = (calls: Call[]) => calls.filter((c) => c.method !== "GET").map((c) => `${c.method} ${c.path}`);
@@ -345,5 +355,38 @@ describe("switchIds and branchName", () => {
 
   it("makes a safe branch name", () => {
     expect(branchName("gemini-2.0-flash", "Gemini 3.1@latest")).toBe("ai-change-guard/gemini-2.0-flash-to-gemini-3.1-latest");
+  });
+});
+
+describe("the model switch report on the dashboard", () => {
+  it("saves the replay as a check run on the commit, with the pull request's address", async () => {
+    const { readReplayCheckText, REPLAY_CHECK_NAME } = await import("@ai-changeguard/replay");
+    const { api, checks } = fakeGitHub();
+    const { checkLines } = await runWithPr(api);
+    expect(checks).toHaveLength(1);
+    const body = checks[0]!.body as { name: string; head_sha: string; status: string; conclusion: string; output: { title: string; summary: string; text: string } };
+    expect(body).toMatchObject({ name: REPLAY_CHECK_NAME, head_sha: SHA, status: "completed", conclusion: "success" });
+    expect(body.output.title).toBe("1 same · 0 changed · 0 broken");
+    expect(body.output.summary).toContain("## Model switch check: `openai:gpt-4o` → `openai:gpt-6-luna`");
+    const report = readReplayCheckText(body.output.text);
+    expect(report).toMatchObject({ v: 1, oldModel: "openai:gpt-4o", newModel: "openai:gpt-6-luna", prUrl: "https://github.com/acme/bot/pull/7" });
+    expect(report?.totals).toEqual({ same: 1, changed: 0, broken: 0, error: 0 });
+    expect(checkLines).toEqual(["AI Change Guard: saved the model switch report as a check run; it shows on your AI Change Guard dashboard"]);
+  });
+
+  it("still saves the report when opening the pull request fails", async () => {
+    const { api, checks } = fakeGitHub({ denyPulls: true });
+    await expect(runWithPr(api)).rejects.toThrow(/Allow GitHub Actions to create and approve pull requests/);
+    expect(checks).toHaveLength(1);
+    expect((checks[0]!.body as { output: { text: string } }).output.text).not.toContain("prUrl");
+  });
+
+  it("says how to turn it on when the workflow may not write checks, and the job still passes", async () => {
+    const { api } = fakeGitHub({ denyChecks: true });
+    const { code, checkLines } = await runWithPr(api);
+    expect(code).toBe(0);
+    expect(checkLines).toEqual([
+      '::notice::AI Change Guard: could not save the model switch report as a check run (add "checks: write" to the workflow\'s permissions to see this report on your AI Change Guard dashboard).',
+    ]);
   });
 });

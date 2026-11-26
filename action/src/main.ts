@@ -1,6 +1,6 @@
 import { appendFile, readFile } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
-import { createClient, parseModelRef, withRetry, type LlmClient } from "@ai-change-guard/llm";
+import { createClient, parseModelRef, withRetry, type LlmClient } from "@ai-changeguard/llm";
 import {
   candidateProblem,
   cheaperCandidates,
@@ -15,13 +15,17 @@ import {
   loadGoldenSet,
   parseBaseline,
   postSlack,
+  REPLAY_CHECK_NAME,
+  replayCheckText,
+  replayConclusion,
+  replayTitle,
   runReplayJob,
   runWatch,
   slackMessage,
-} from "@ai-change-guard/replay";
-import { addOnlinePackageChecks, buildCheck, buildReport, checkSwitchIds, compareMcp, describeServer, listMcpTools, planPromptEdit, planSwitch, scanDirectory, type Report } from "@ai-change-guard/scanner";
+} from "@ai-changeguard/replay";
+import { addOnlinePackageChecks, buildCheck, buildReport, checkSwitchIds, compareMcp, describeServer, listMcpTools, planPromptEdit, planSwitch, scanDirectory, type Report } from "@ai-changeguard/scanner";
 import { createHash } from "node:crypto";
-import { githubApi, openEvidencePr, type GitHubApi } from "./pr.js";
+import { GitHubError, githubApi, openEvidencePr, type GitHubApi } from "./pr.js";
 
 const SOON_DAYS = 90;
 
@@ -85,6 +89,42 @@ export function switchIds(oldModel: string, newModel: string): { from: string; t
   const last = (m: string) => m.slice(m.lastIndexOf("/") + 1);
   const ids = checkSwitchIds(last(a.model), last(b.model));
   return prefix(a.model) ? { ...ids, prefix: prefix(a.model) } : ids;
+}
+
+/**
+ * Publishes the replay report as a check run on the commit, which is where the AI Change Guard dashboard reads
+ * its migration report. Never fails the job: without "checks: write" it says how to turn it on.
+ */
+async function publishReplayCheck({ env, log, github, replay, prUrl, failOn }: {
+  env: RunDeps["env"];
+  log: RunDeps["log"];
+  github: GitHubApi | undefined;
+  replay: Parameters<typeof replayCheckText>[0];
+  prUrl: string | undefined;
+  failOn: "broken" | "changed" | "none";
+}): Promise<void> {
+  const repo = env.GITHUB_REPOSITORY ?? "";
+  const sha = env.GITHUB_SHA ?? "";
+  const token = input("github-token", env) || env.GITHUB_TOKEN || "";
+  if (!repo || !sha || (!github && !token)) return;
+  try {
+    await (github ?? githubApi(token, env.GITHUB_API_URL))("POST", `/repos/${repo}/check-runs`, {
+      name: REPLAY_CHECK_NAME,
+      head_sha: sha,
+      status: "completed",
+      conclusion: replayConclusion(replay, failOn),
+      output: { title: replayTitle(replay), summary: formatReplayMarkdown(replay).slice(0, 60_000), text: replayCheckText(replay, prUrl) },
+    });
+    log("AI Change Guard: saved the model switch report as a check run; it shows on your AI Change Guard dashboard");
+  } catch (error) {
+    const hint =
+      error instanceof GitHubError && error.status === 403
+        ? 'add "checks: write" to the workflow\'s permissions to see this report on your AI Change Guard dashboard'
+        : error instanceof Error
+          ? error.message
+          : String(error);
+    log(`::notice::AI Change Guard: could not save the model switch report as a check run (${hint}).`);
+  }
 }
 
 /** Runs the Action and returns the process exit code. */
@@ -325,32 +365,39 @@ export async function run({ env, today, log, client, github }: RunDeps): Promise
     log(`${replayFailed ? "::error::" : ""}AI Change Guard replay: ${replay.totals.same} same, ${changed} changed, ${broken} broken`);
     failed = failed || replayFailed;
 
-    if (ids && plan) {
-      const notice = (text: string) => log(`::notice::AI Change Guard: ${text}`);
-      if (replayFailed || broken > 0 || replay.totals.error > 0) {
-        notice("no pull request, because the replay did not pass (see the Summary).");
-      } else if (plan.edits.length === 0) {
-        notice(`no pull request, because no code uses ${ids.from} as a plain model ID${plan.skipped.length ? ` (${plan.skipped.length} use(s) need a manual change)` : ""}.`);
-      } else {
-        const token = input("github-token", env) || env.GITHUB_TOKEN || "";
-        if (!github && !token) throw new Error('open-pr needs a token: keep the default "github-token" input or pass one.');
-        const repo = env.GITHUB_REPOSITORY ?? "";
-        const result = await openEvidencePr({
-          api: github ?? githubApi(token, env.GITHUB_API_URL),
-          repo,
-          ref: env.GITHUB_REF ?? "",
-          sha: env.GITHUB_SHA ?? "",
-          workspace,
-          scanPath: relative(workspace, scanRoot).split(sep).join("/"),
-          plan,
-          replay,
-        });
-        if (result.action === "skipped") notice(`no pull request. ${result.reason}`);
-        else {
-          log(`AI Change Guard ${result.action} pull request #${result.number}: ${result.url}`);
-          await summary(`**Evidence pull request ${result.action}:** [#${result.number}](${result.url})`);
+    let prUrl: string | undefined;
+    // The report is saved for the dashboard even when opening the pull request fails (permissions, a race).
+    try {
+      if (ids && plan) {
+        const notice = (text: string) => log(`::notice::AI Change Guard: ${text}`);
+        if (replayFailed || broken > 0 || replay.totals.error > 0) {
+          notice("no pull request, because the replay did not pass (see the Summary).");
+        } else if (plan.edits.length === 0) {
+          notice(`no pull request, because no code uses ${ids.from} as a plain model ID${plan.skipped.length ? ` (${plan.skipped.length} use(s) need a manual change)` : ""}.`);
+        } else {
+          const token = input("github-token", env) || env.GITHUB_TOKEN || "";
+          if (!github && !token) throw new Error('open-pr needs a token: keep the default "github-token" input or pass one.');
+          const repo = env.GITHUB_REPOSITORY ?? "";
+          const result = await openEvidencePr({
+            api: github ?? githubApi(token, env.GITHUB_API_URL),
+            repo,
+            ref: env.GITHUB_REF ?? "",
+            sha: env.GITHUB_SHA ?? "",
+            workspace,
+            scanPath: relative(workspace, scanRoot).split(sep).join("/"),
+            plan,
+            replay,
+          });
+          if (result.action === "skipped") notice(`no pull request. ${result.reason}`);
+          else {
+            log(`AI Change Guard ${result.action} pull request #${result.number}: ${result.url}`);
+            await summary(`**Evidence pull request ${result.action}:** [#${result.number}](${result.url})`);
+            prUrl = result.url;
+          }
         }
       }
+    } finally {
+      await publishReplayCheck({ env, log, github, replay, prUrl, failOn: replayFailOn as "broken" | "changed" | "none" });
     }
   }
   return failed ? 1 : 0;

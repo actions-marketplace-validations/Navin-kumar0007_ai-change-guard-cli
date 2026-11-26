@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/recorder",
+  "name": "@ai-changeguard/recorder",
   "version": "0.1.0",
   "description": "Records your app's real AI calls to a JSONL file that ai-change-guard import turns into a golden set.",
   "license": "MIT",

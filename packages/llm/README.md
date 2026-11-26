@@ -1,4 +1,4 @@
-# @ai-change-guard/llm
+# @ai-changeguard/llm
 
 Minimal clients for OpenAI, Anthropic and Gemini used by AI Change Guard replays.
 

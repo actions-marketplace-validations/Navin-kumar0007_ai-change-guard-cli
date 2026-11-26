@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/mcp",
+  "name": "@ai-changeguard/mcp",
   "version": "0.1.0",
   "description": "MCP server: lets AI coding assistants find retiring AI models in your code and test a model switch.",
   "license": "MIT",
@@ -48,10 +48,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@ai-change-guard/catalog": "0.1.0",
-    "@ai-change-guard/llm": "0.1.0",
-    "@ai-change-guard/replay": "0.1.0",
-    "@ai-change-guard/scanner": "0.1.0",
+    "@ai-changeguard/catalog": "0.1.0",
+    "@ai-changeguard/llm": "0.1.0",
+    "@ai-changeguard/replay": "0.1.0",
+    "@ai-changeguard/scanner": "0.1.0",
     "zod": "4.6.7",
     "@modelcontextprotocol/server": "2.4.0"
   },

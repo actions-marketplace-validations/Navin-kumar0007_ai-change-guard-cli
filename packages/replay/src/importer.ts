@@ -1,4 +1,4 @@
-import type { ChatMessage, ToolDef } from "@ai-change-guard/llm";
+import type { ChatMessage, ToolDef } from "@ai-changeguard/llm";
 import type { GoldenExpect, GoldenItem } from "./golden.js";
 import type { JsonSchema } from "./schema.js";
 

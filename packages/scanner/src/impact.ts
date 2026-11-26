@@ -1,6 +1,6 @@
 // Monthly cost impact of announced price changes, from the app's real call volume: the recorder's
 // ai-calls.jsonl (or numbers the user gives). Used by `ai-change-guard cost`.
-import { billedPriceOn, callCost, defaultPlatform, lookupModel, lookupPrice, type Platform, type TokenPrice } from "@ai-change-guard/catalog";
+import { billedPriceOn, callCost, defaultPlatform, lookupModel, lookupPrice, type Platform, type TokenPrice } from "@ai-changeguard/catalog";
 import { buildCostRows, type CostRow } from "./costs.js";
 import { classifyModelId } from "./detect.js";
 

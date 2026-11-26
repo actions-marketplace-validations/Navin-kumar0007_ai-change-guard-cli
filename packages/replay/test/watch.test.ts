@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest, LlmResponse } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest, LlmResponse } from "@ai-changeguard/llm";
 import { describe, expect, it } from "vitest";
 import { parseGoldenSet } from "../src/golden.js";
 import { createBaseline, formatWatchMarkdown, itemHash, parseBaseline, postSlack, runWatch, slackMessage } from "../src/watch.js";

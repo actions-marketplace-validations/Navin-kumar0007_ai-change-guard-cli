@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest } from "@ai-changeguard/llm";
 import { describe, expect, it } from "vitest";
 import { parseGoldenSet } from "../src/golden.js";
 import { applyRepair, formatRepairMarkdown, goldenLine, repairable, runRepair } from "../src/repair.js";

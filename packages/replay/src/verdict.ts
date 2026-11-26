@@ -1,4 +1,4 @@
-import type { LlmResponse, ToolCall } from "@ai-change-guard/llm";
+import type { LlmResponse, ToolCall } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import type { RunRecord } from "./run.js";
 import { extractJson, validateSchema } from "./schema.js";

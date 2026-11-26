@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/catalog",
+  "name": "@ai-changeguard/catalog",
   "version": "0.1.0",
   "description": "Catalog of AI model and API retirement dates and model prices, with a source link for every entry.",
   "license": "MIT",

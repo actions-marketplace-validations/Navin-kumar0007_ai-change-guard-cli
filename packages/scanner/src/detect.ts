@@ -1,4 +1,4 @@
-import type { ApiEntry, Platform, Provider } from "@ai-change-guard/catalog";
+import type { ApiEntry, Platform, Provider } from "@ai-changeguard/catalog";
 
 export type FileKind = "code" | "config";
 

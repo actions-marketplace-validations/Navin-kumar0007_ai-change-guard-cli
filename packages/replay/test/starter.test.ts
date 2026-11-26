@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest } from "@ai-changeguard/llm";
 import { describe, expect, it } from "vitest";
 import { generateStarterSet, parseStarterAnswer } from "../src/starter.js";
 

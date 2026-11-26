@@ -1,4 +1,4 @@
-# @ai-change-guard/replay
+# @ai-changeguard/replay
 
 Replays real prompts on an old and a new AI model and reports what changed.
 

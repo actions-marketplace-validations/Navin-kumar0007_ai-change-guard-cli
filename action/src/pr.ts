@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join, posix } from "node:path";
-import { formatReplayMarkdown, type ReplayReport } from "@ai-change-guard/replay";
-import type { SwitchPlan } from "@ai-change-guard/scanner";
+import { formatReplayMarkdown, type ReplayReport } from "@ai-changeguard/replay";
+import type { SwitchPlan } from "@ai-changeguard/scanner";
 
 export class GitHubError extends Error {
   constructor(

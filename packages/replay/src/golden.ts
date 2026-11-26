@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import type { ChatMessage, ToolDef } from "@ai-change-guard/llm";
+import type { ChatMessage, ToolDef } from "@ai-changeguard/llm";
 import type { JsonSchema } from "./schema.js";
 
 export interface GoldenExpect {

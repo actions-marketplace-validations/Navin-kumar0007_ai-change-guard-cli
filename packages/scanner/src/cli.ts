@@ -4,7 +4,7 @@ import { mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { promisify } from "node:util";
-import { createClient, parseModelRef, withRetry } from "@ai-change-guard/llm";
+import { createClient, parseModelRef, withRetry } from "@ai-changeguard/llm";
 import {
   applyRepair,
   createBaseline,
@@ -43,7 +43,7 @@ import {
   loadGoldenSet,
   plannedCalls,
   runReplayJob,
-} from "@ai-change-guard/replay";
+} from "@ai-changeguard/replay";
 import { addOnlinePackageChecks, buildReport, formatText, localToday } from "./report.js";
 import { buildLock, compareMcp, formatLockChanges, LOCK_FILE, mcpSection, parseLock, serializeLock, type AiStackLock } from "./lock.js";
 import { describeServer, listMcpTools, type McpServerConfig } from "./mcp-tools.js";

@@ -1,4 +1,4 @@
-# @ai-change-guard/scanner
+# @ai-changeguard/scanner
 
 Finds every AI model in your code and warns before it is retired, rerouted or shut down.
 

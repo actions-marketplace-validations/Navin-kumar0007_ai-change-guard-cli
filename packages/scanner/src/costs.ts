@@ -1,6 +1,6 @@
 // Cost Change Guard: announced price changes (introductory prices ending, scheduled increases) and reroutes
 // billed at another model's rates, for the models a repository uses. Prices come from the catalog.
-import { daysBetween, formatUsd, lookupPrice, lookupPriceChanges, priceOn, type Platform, type PriceChange, type TokenPrice } from "@ai-change-guard/catalog";
+import { daysBetween, formatUsd, lookupPrice, lookupPriceChanges, priceOn, type Platform, type PriceChange, type TokenPrice } from "@ai-changeguard/catalog";
 
 export { daysBetween, formatUsd };
 

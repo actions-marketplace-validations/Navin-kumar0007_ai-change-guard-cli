@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest } from "@ai-changeguard/llm";
 import { describe, expect, it } from "vitest";
 import { litellmConfig, openrouterConfig, testFallbacks } from "../src/fallback.js";
 import { parseGoldenSet } from "../src/golden.js";

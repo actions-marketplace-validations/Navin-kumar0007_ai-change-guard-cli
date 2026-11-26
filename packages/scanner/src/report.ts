@@ -10,7 +10,7 @@ import {
   type Platform,
   type Provider,
   type TokenPrice,
-} from "@ai-change-guard/catalog";
+} from "@ai-changeguard/catalog";
 import { buildCostRows, describeCost, formatPrice, type CostRow } from "./costs.js";
 import { buildLock, compareLock, formatLockChanges, LOCK_FILE, LockError, parseLock, type AiStackLock, type LockChange, type LockedBaseline } from "./lock.js";
 import { aiPackagesOf, checkPackagesOffline, checkPackagesOnline, describePackage, NEW_PACKAGE_DAYS, PACKAGE_FIX, sortPackageRows, type AiPackage, type OnlineOptions, type PackageRow } from "./packages.js";

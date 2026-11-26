@@ -35,6 +35,6 @@
     "bin.js"
   ],
   "dependencies": {
-    "@ai-change-guard/scanner": "0.1.0"
+    "@ai-changeguard/scanner": "0.1.0"
   }
 }

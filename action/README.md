@@ -112,6 +112,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  checks: write        # saves the replay report as a check run, for the AI Change Guard dashboard
 jobs:
   switch:
     runs-on: ubuntu-latest
@@ -129,6 +130,8 @@ jobs:
 ```
 
 Also turn on **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**.
+
+Every replay is also saved as a check run named **AI Change Guard model switch** on the commit (title such as "45 same · 3 changed · 2 broken"), which is where the [AI Change Guard dashboard](https://ai-change-guard.vercel.app/dashboard) reads its migration report. It needs `checks: write`; without it the Action says so in a notice and carries on.
 
 How it behaves:
 

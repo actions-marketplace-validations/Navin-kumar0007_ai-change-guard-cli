@@ -1,10 +1,10 @@
 import { realpath } from "node:fs/promises";
 import { homedir } from "node:os";
 import { isAbsolute, posix, relative, resolve, sep } from "node:path";
-import { lookupModel, models as catalogModels, type Provider } from "@ai-change-guard/catalog";
-import { createClient, parseModelRef, withRetry, type LlmClient } from "@ai-change-guard/llm";
-import { formatRepairMarkdown, formatReplayMarkdown, loadGoldenSet, plannedCalls, ReplayCancelledError, runReplayJob } from "@ai-change-guard/replay";
-import { buildReport, classifyModelId, daysBetween, formatText, planSwitch, scanDirectory } from "@ai-change-guard/scanner";
+import { lookupModel, models as catalogModels, type Provider } from "@ai-changeguard/catalog";
+import { createClient, parseModelRef, withRetry, type LlmClient } from "@ai-changeguard/llm";
+import { formatRepairMarkdown, formatReplayMarkdown, loadGoldenSet, plannedCalls, ReplayCancelledError, runReplayJob } from "@ai-changeguard/replay";
+import { buildReport, classifyModelId, daysBetween, formatText, planSwitch, scanDirectory } from "@ai-changeguard/scanner";
 import { McpServer } from "@modelcontextprotocol/server";
 import * as z from "zod/v4";
 

@@ -1,4 +1,4 @@
-import type { LlmClient, LlmRequest, LlmResponse } from "@ai-change-guard/llm";
+import type { LlmClient, LlmRequest, LlmResponse } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 
 export type Side = "old" | "new";

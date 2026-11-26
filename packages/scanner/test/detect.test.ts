@@ -1,4 +1,4 @@
-import { apis } from "@ai-change-guard/catalog";
+import { apis } from "@ai-changeguard/catalog";
 import { describe, expect, it } from "vitest";
 import { classifyModelId, compileApiRules, scanText, type FileKind } from "../src/detect.js";
 

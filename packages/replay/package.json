@@ -1,5 +1,5 @@
 {
-  "name": "@ai-change-guard/replay",
+  "name": "@ai-changeguard/replay",
   "version": "0.1.0",
   "description": "Replays real prompts on an old and a new AI model and reports what changed.",
   "license": "MIT",
@@ -45,7 +45,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@ai-change-guard/llm": "0.1.0",
-    "@ai-change-guard/catalog": "0.1.0"
+    "@ai-changeguard/llm": "0.1.0",
+    "@ai-changeguard/catalog": "0.1.0"
   }
 }

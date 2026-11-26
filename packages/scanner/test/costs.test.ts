@@ -1,4 +1,4 @@
-import { billedPriceOn, callCost, lookupPrice, prices, priceChanges, priceOn, tokenRatio } from "@ai-change-guard/catalog";
+import { billedPriceOn, callCost, lookupPrice, prices, priceChanges, priceOn, tokenRatio } from "@ai-changeguard/catalog";
 import { describe, expect, it } from "vitest";
 import { buildCheck } from "../src/check.js";
 import { buildCostRows, describeCost, formatUsd, isPriceRise, priceChangeText } from "../src/costs.js";

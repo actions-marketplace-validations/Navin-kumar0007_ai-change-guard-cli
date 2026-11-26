@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { LlmClient, LlmResponse } from "@ai-change-guard/llm";
+import type { LlmClient, LlmResponse } from "@ai-changeguard/llm";
 import type { GoldenItem } from "./golden.js";
 import { buildReplayReport, isReroute, modelName, type ReplayReport } from "./report.js";
 import { runReplay, type RunRecord } from "./run.js";

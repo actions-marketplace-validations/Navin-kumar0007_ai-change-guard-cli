@@ -1,7 +1,7 @@
 // AI package guard (AI Security Check part B): AI SDKs, agent frameworks and MCP packages a project installs,
 // checked for releases published with malicious code, and (online) for names that don't exist on the registry
 // or were first published days ago: signs of an invented or fake package.
-import { aiPackageMatch, findCompromised, type CompromisedRelease } from "@ai-change-guard/catalog";
+import { aiPackageMatch, findCompromised, type CompromisedRelease } from "@ai-changeguard/catalog";
 import type { Dependency, Ecosystem } from "./deps.js";
 
 /** Names that look AI-related, so an unknown one is worth a registry check (invented names often look like this). */
